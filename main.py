@@ -6,6 +6,8 @@ c_dir = os.path.dirname(__file__)
 with open(os.path.join(c_dir, "config/credenciais.txt")) as key_file:
   api_token, user_id = key_file.read().splitlines()
 
+user_id = int(user_id)
+
 def start(update, context):
   if update.message.from_user.id == user_id:
     # Valido
