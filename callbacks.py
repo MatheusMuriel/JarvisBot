@@ -1,0 +1,5 @@
+OPCAO_SELECIONADA = "opcao_selecionada"
+STATUS_SERVIDOR = "status_servidor"
+TRABS_ENTREGAR = "trabs_entregar"
+PREV_TEMPO = "prev_temp"
+ESTOQ_RACAO = "estoq_racao"
