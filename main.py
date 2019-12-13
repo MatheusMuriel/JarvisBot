@@ -34,7 +34,7 @@ updater = Updater(api_token, use_context=True)
 
 updater.dispatcher.add_handler(CommandHandler('start', start))
 
-print('Iniciando Jarvis...')
+print('Iniciando Jarvis....')
 
 updater.start_polling()
 updater.idle()
