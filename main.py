@@ -3,6 +3,8 @@ from callbacks import *
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler, ConversationHandler, CallbackQueryHandler
 
+print('Iniciando Jarvis...')
+
 # Le as credenciais
 c_dir = os.path.dirname(__file__)
 with open(os.path.join(c_dir, "config/credenciais.txt")) as key_file:
@@ -34,7 +36,8 @@ updater = Updater(api_token, use_context=True)
 
 updater.dispatcher.add_handler(CommandHandler('start', start))
 
-print('Iniciando Jarvis...')
-
 updater.start_polling()
+
+print('Jarvis iniciado!')
+
 updater.idle()
