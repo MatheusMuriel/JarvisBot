@@ -4,6 +4,10 @@ import logging
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler, ConversationHandler, CallbackQueryHandler
 
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 print('Iniciando Jarvis...')
 
 # Le as credenciais
@@ -14,16 +18,15 @@ with open(os.path.join(c_dir, "config/credenciais.txt")) as key_file:
 user_id = int(user_id)
 
 def start(update, context):
-  
   if update.message.from_user.id == user_id:
     # Valido
     update.message.reply_text('Olá mestre! :D')
-    mostrar_opcoes(update)
+    #mostrar_opcoes(update)
   else:
     # Não é valido
     update.message.reply_text('Grrrr!\nVocê não é meu mestre')
 
-def mostrar_opcoes(update):
+def opcoes(update):
   button_list = [
     [InlineKeyboardButton("Status servidor", callback_data=STATUS_SERVIDOR),
       InlineKeyboardButton("Trabalhos para entregar", callback_data=TRABS_ENTREGAR), ],
@@ -51,6 +54,7 @@ def main():
   updater = Updater(api_token, use_context=True)
 
   updater.dispatcher.add_handler(CommandHandler('start', start))
+  updater.dispatcher.add_handler(CommandHandler('opcoes', opcoes))
   updater.dispatcher.add_handler(CallbackQueryHandler(button))
   updater.dispatcher.add_error_handler(error)
 
