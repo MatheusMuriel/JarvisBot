@@ -1,5 +1,6 @@
 import os
 from callbacks import *
+import logging
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler, ConversationHandler, CallbackQueryHandler
 
@@ -30,14 +31,35 @@ def mostrar_opcoes(update):
       InlineKeyboardButton("Estoque de ração", callback_data=ESTOQ_RACAO)],
   ]
 
-  update.message.reply_text("Como posso te ajudar?", reply_markup=InlineKeyboardMarkup(button_list))
+  reply_markup = InlineKeyboardMarkup(button_list)
 
-updater = Updater(api_token, use_context=True)
+  update.message.reply_text("Como posso te ajudar?", reply_markup=reply_markup)
 
-updater.dispatcher.add_handler(CommandHandler('start', start))
+def button(update, context):
+  query = update.callback_query
 
-updater.start_polling()
+  query.edit_message_text(text="Selected option: {}".format(query.data))
 
-print('Jarvis iniciado!')
+def error(update, context):
+  """Log Errors caused by Updates."""
+  logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-updater.idle()
+def main():
+  # Cria o Updater e passa para ele o token do bot
+  # O "use_context" é marcado como verdadeiro para
+  # usar o callback
+  updater = Updater(api_token, use_context=True)
+
+  updater.dispatcher.add_handler(CommandHandler('start', start))
+  updater.dispatcher.add_handler(CallbackQueryHandler(button))
+  updater.dispatcher.add_error_handler(error)
+
+  # inicia o bot
+  updater.start_polling()
+  print('Jarvis iniciado!')
+
+  # Executa o bot ate que ele receba um sinal de parada
+  updater.idle()
+
+if __name__ == '__main__':
+  main()
