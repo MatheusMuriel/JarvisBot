@@ -16,7 +16,7 @@ def start(update, context):
   
   if update.message.from_user.id == user_id:
     # Valido
-    update.message.reply_text('Olá mestre!! :D')
+    update.message.reply_text('Olá mestre! :D')
     mostrar_opcoes(update)
   else:
     # Não é valido
