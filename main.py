@@ -26,7 +26,7 @@ def start(update, context):
     # Não é valido
     update.message.reply_text('Grrrr!\nVocê não é meu mestre')
 
-def opcoes(update):
+def opcoes(update, context):
   button_list = [
     [InlineKeyboardButton("Status servidor", callback_data=STATUS_SERVIDOR),
       InlineKeyboardButton("Trabalhos para entregar", callback_data=TRABS_ENTREGAR), ],
