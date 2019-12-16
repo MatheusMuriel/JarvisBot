@@ -1,11 +1,15 @@
 import os
 import logging
+import datetime
+import time
 
 from callbacks import *
 import skills
+import asyncs
 
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler, ConversationHandler, CallbackQueryHandler
+from telegram.ext.dispatcher import run_async
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -92,6 +96,8 @@ def main():
   # inicia o bot
   updater.start_polling()
   print('Jarvis iniciado!')
+
+  asyncs.verifica_previsao_tempo()
 
   # Executa o bot ate que ele receba um sinal de parada
   updater.idle()
