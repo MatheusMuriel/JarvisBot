@@ -20,7 +20,6 @@ def verifica_previsao_tempo():
 
   timestamp = time.strftime("Date: %Y-%m-%d %H:%M", time.localtime())
   msg = []
-  msg.append("Stockholm")
   msg.append(timestamp)
 
   url = "https://api.forecast.io/forecast/{}/{}?lang={}&units={}".format(wth_key, wth_loc, "pt", "auto")
