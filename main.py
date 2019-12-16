@@ -1,6 +1,10 @@
 import os
-from callbacks import *
 import logging
+
+from callbacks import *
+#from skills import *
+import skills
+
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler, ConversationHandler, CallbackQueryHandler
 
@@ -28,20 +32,27 @@ def start(update, context):
 
 def opcoes(update, context):
   button_list = [
-    [InlineKeyboardButton("Status servidor", callback_data=STATUS_SERVIDOR),
-      InlineKeyboardButton("Trabalhos para entregar", callback_data=TRABS_ENTREGAR), ],
-    [InlineKeyboardButton("Previsão do tempo", callback_data=PREV_TEMPO),
-      InlineKeyboardButton("Estoque de ração", callback_data=ESTOQ_RACAO)],
+    [InlineKeyboardButton(nomes_bonitos.get(STATUS_SERVIDOR), callback_data=valor_callback(STATUS_SERVIDOR)),
+      InlineKeyboardButton(nomes_bonitos.get(TRABS_ENTREGAR), callback_data=valor_callback(TRABS_ENTREGAR))],
+    [InlineKeyboardButton(nomes_bonitos.get(PREV_TEMPO), callback_data=valor_callback(PREV_TEMPO)),
+      InlineKeyboardButton(nomes_bonitos.get(ESTOQ_RACAO), callback_data=valor_callback(ESTOQ_RACAO))],
   ]
 
   reply_markup = InlineKeyboardMarkup(button_list)
 
   update.message.reply_text("Como posso te ajudar?", reply_markup=reply_markup)
 
-def button(update, context):
+def processa_botao(update, context):
   query = update.callback_query
 
-  query.edit_message_text(text="Selected option: {}".format(query.data))
+  opcao_escolhida = get_callback_pelo_valor(query.data)
+
+  resposta = ''
+
+  if opcao_escolhida == TRABS_ENTREGAR:
+    resposta = skills.trabalhos_a_entregar()
+
+  query.edit_message_text(text="{}: \n{}".format(nomes_bonitos.get(opcao_escolhida), resposta))
 
 def error(update, context):
   """Log Errors caused by Updates."""
@@ -55,7 +66,7 @@ def main():
 
   updater.dispatcher.add_handler(CommandHandler('start', start))
   updater.dispatcher.add_handler(CommandHandler('opcoes', opcoes))
-  updater.dispatcher.add_handler(CallbackQueryHandler(button))
+  updater.dispatcher.add_handler(CallbackQueryHandler(processa_botao))
   updater.dispatcher.add_error_handler(error)
 
   # inicia o bot
