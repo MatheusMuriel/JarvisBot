@@ -64,6 +64,8 @@ def processa_botao(update, context):
 
   if opcao_escolhida == TRABS_ENTREGAR:
     resposta = skills.trabalhos_a_entregar()
+  elif opcao_escolhida == PREV_TEMPO:
+    resposta = asyncs.verifica_previsao_tempo()
 
   #query.edit_message_text(text="{}: \n{}".format(nomes_bonitos.get(opcao_escolhida), resposta))
   resposta_callback = "{}: \n{}".format(nomes_bonitos.get(opcao_escolhida), resposta)
