@@ -30,7 +30,7 @@ def verifica_previsao_tempo():
   temp = jdata["currently"]["temperature"]
   #temp = Far2Celsius(temp)
 
-  msg.append(u"Temperature: %s°C" % temp)
-  msg.append("Summary: %s" %summary)
+  msg.append(u"Temperatura: %s°C" % temp)
+  msg.append("Descrição: %s" %summary)
 
   return msg
