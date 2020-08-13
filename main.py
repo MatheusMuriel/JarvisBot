@@ -40,7 +40,7 @@ def carrega_credenciais():
 
 def start(update, context):
   if update.message.from_user.id == user_id:
-    update.message.reply_text('Olá mestre 2.0! :D')
+    update.message.reply_text('Olá mestre 1.0! :D')
   else:
     update.message.reply_text('Grrrr!\nVocê não é meu mestre')
 
