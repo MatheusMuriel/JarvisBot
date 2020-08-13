@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 OPCAO_SELECIONADA = "opcao_selecionada"
 STATUS_SERVIDOR = "status_servidor"
 TRABS_ENTREGAR = "trabs_entregar"

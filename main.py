@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import logging
 import datetime
@@ -34,12 +35,12 @@ def carrega_credenciais():
     api_token = credenciais[0]
     user_id = int(credenciais[1])
   else:
-    print("Arquivo 'config/credenciais.txt' não foi encontrado")
+    print("Arquivo config/credenciais.txt nao foi encontrado")
     exit()
 
 def start(update, context):
   if update.message.from_user.id == user_id:
-    update.message.reply_text('Olá mestre! :D')
+    update.message.reply_text('Olá mestre 2.0! :D')
   else:
     update.message.reply_text('Grrrr!\nVocê não é meu mestre')
 
